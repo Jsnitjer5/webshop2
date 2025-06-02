@@ -1,0 +1,110 @@
+[
+    {
+      "id": 1,
+      "name": "AMD Ryzen 7 5800X",
+      "category": "CPU",
+      "price": 349.99,
+      "image": "img/cpu.png",
+      "description": "8-core, 16-thread processor voor veeleisende taken en gaming. Uitstekende single-core en multi-core prestaties.",
+      "specifications": {
+        "Cores": "8",
+        "Threads": "16",
+        "Basiskloksnelheid": "3.8 GHz",
+        "Max Boost Clock": "4.7 GHz",
+        "TDP": "105W",
+        "Cache": "32MB L3 Cache",
+        "Socket": "AM4",
+        "PCIe": "PCIe 4.0"
+      },
+      "stock": 15,
+      "featured": true,
+      "rating": 4.8
+    },
+    {
+      "id": 2,
+      "name": "NVIDIA GeForce RTX 3080",
+      "category": "GPU",
+      "price": 799.99,
+      "image": "img/gpu.jpg",
+      "description": "High-end grafische kaart met ray-tracing ondersteuning en DLSS voor ultieme gaming prestaties op hoge resoluties.",
+      "specifications": {
+        "CUDA Cores": "8704",
+        "Boost Clock": "1.71 GHz",
+        "Memory": "10GB GDDR6X",
+        "Memory Interface": "320-bit",
+        "Memory Speed": "19 Gbps",
+        "TDP": "320W",
+        "Aanbevolen PSU": "750W",
+        "Outputs": "HDMI 2.1, 3x DisplayPort 1.4a"
+      },
+      "stock": 8,
+      "featured": true,
+      "rating": 4.9
+    },
+    {
+      "id": 3,
+      "name": "ASUS ROG Strix B550-F Gaming",
+      "category": "Moederbord",
+      "price": 159.99,
+      "image": "img/motherboard.jpg",
+      "description": "Premium ATX moederbord met uitstekende VRM's, WiFi 6, 2.5G LAN en high-end audio voor gaming builds.",
+      "specifications": {
+        "Socket": "AM4",
+        "Chipset": "AMD B550",
+        "Form Factor": "ATX",
+        "Memory Slots": "4x DIMM, Max 128GB",
+        "Memory Type": "DDR4 4400+(OC)",
+        "PCIe Slots": "1x PCIe 4.0 x16, 1x PCIe 3.0 x16, 3x PCIe 3.0 x1",
+        "Storage": "2x M.2 Socket, 6x SATA 6Gb/s",
+        "LAN": "Intel I225-V 2.5Gb Ethernet",
+        "Audio": "SupremeFX S1220A",
+        "USB": "7x USB 3.2, 6x USB 2.0"
+      },
+      "stock": 12,
+      "featured": false,
+      "rating": 4.7
+    },
+    {
+      "id": 4,
+      "name": "Corsair Vengeance RGB Pro 32GB",
+      "category": "RAM",
+      "price": 139.99,
+      "image": "img/ram.jpg",
+      "description": "High-performance DDR4 geheugen met RGB verlichting, perfect voor gaming en content creatie.",
+      "specifications": {
+        "Capaciteit": "32GB (2x16GB)",
+        "Type": "DDR4",
+        "Snelheid": "3600MHz",
+        "Latency": "CL18",
+        "Voltage": "1.35V",
+        "RGB": "Ja, 10-zone RGB verlichting",
+        "Compatibiliteit": "Intel & AMD platforms",
+        "Profielen": "XMP 2.0"
+      },
+      "stock": 20,
+      "featured": false,
+      "rating": 4.6
+    },
+    {
+      "id": 5,
+      "name": "Pekel Gaming PC Ultra",
+      "category": "Pre-build PC",
+      "price": 1799.99,
+      "image": "img/custom.jpeg",
+      "description": "Complete high-end gaming PC met de nieuwste componenten, perfect gebalanceerd voor de beste game-ervaring.",
+      "specifications": {
+        "Processor": "AMD Ryzen 7 5800X",
+        "Grafische kaart": "NVIDIA GeForce RTX 3080",
+        "Geheugen": "32GB Corsair Vengeance RGB Pro (2x16GB) 3600MHz",
+        "Moederbord": "ASUS ROG Strix B550-F Gaming",
+        "Opslag": "1TB NVMe SSD + 2TB HDD",
+        "Koeling": "NZXT Kraken X63 liquid cooling",
+        "Voeding": "850W 80+ Gold",
+        "Behuizing": "NZXT H510 Elite",
+        "Besturingssysteem": "Windows 11 Pro"
+      },
+      "stock": 5,
+      "featured": true,
+      "rating": 5.0
+    }
+  ]
