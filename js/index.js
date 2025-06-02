@@ -60,7 +60,7 @@ function loadFeaturedProducts() {
     displayFeaturedProducts(products, featuredContainer);
   } else {
     // Load from JSON file
-    fetch('data/products.json')
+    fetch('../data/products.json')
       .then(response => response.json())
       .then(products => {
         // Save to localStorage for future use

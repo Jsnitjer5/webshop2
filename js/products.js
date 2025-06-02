@@ -41,7 +41,7 @@ function loadProducts(category = 'Alle') {
   
   if (!products) {
     // If no products in localStorage, fetch from JSON file
-    fetch('./data/products.json')
+    fetch('../data/products.json')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network error when fetching products');
