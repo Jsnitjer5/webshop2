@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bestellingen beheren | Admin</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+  <div class="min-h-screen flex">
+    <!-- Sidebar -->
+    <div class="hidden md:flex md:flex-shrink-0">
+      <div class="flex flex-col w-64 bg-gray-800">
+        <div class="flex items-center h-16 px-4 bg-gray-900">
+          <span class="text-lg font-medium text-white">Admin Panel</span>
+        </div>
+        <div class="flex flex-col flex-grow overflow-y-auto">
+          <nav class="flex-1 px-2 py-4 space-y-1">
+            <a href="index.html" class="flex items-center px-2 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">
+              <svg class="w-6 h-6 mr-3 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3" />
+              </svg>
+              Dashboard
+            </a>
+            <a href="producten.html" class="flex items-center px-2 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">
+              <svg class="w-6 h-6 mr-3 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+              </svg>
+              Producten
+            </a>
+            <a href="bestellingen.html" class="flex items-center px-2 py-2 text-sm font-medium text-white rounded-md bg-gray-700">
+              <svg class="w-6 h-6 mr-3 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+              </svg>
+              Bestellingen
+            </a>
+          </nav>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Main content -->
+    <div class="flex flex-col flex-1 overflow-hidden">
+      <!-- Top navbar -->
+      <div class="flex items-center justify-between h-16 px-4 bg-white border-b border-gray-200 sm:px-6 md:px-8">
+        <div class="flex items-center">
+          <button id="menu-toggle" class="inline-flex items-center justify-center p-2 text-gray-400 rounded-md md:hidden hover:text-gray-500 hover:bg-gray-100">
+            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          <h1 class="ml-2 text-lg font-medium md:ml-0">Bestellingen beheren</h1>
+        </div>
+      </div>
+      
+      <!-- Mobile menu -->
+      <div id="mobile-menu" class="hidden md:hidden">
+        <div class="px-2 pt-2 pb-3 space-y-1 bg-gray-800">
+          <a href="index.html" class="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">
+            Dashboard
+          </a>
+          <a href="producten.html" class="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">
+            Producten
+          </a>
+          <a href="bestellingen.html" class="block px-3 py-2 text-base font-medium text-white rounded-md bg-gray-700">
+            Bestellingen
+          </a>
+        </div>
+      </div>
+      
+      <!-- Main content area -->
+      <div class="flex-1 overflow-auto">
+        <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 md:px-8">
+          <!-- Orders management -->
+          <div class="mb-6">
+            <div class="flex items-center justify-between">
+              <h2 class="text-xl font-semibold text-gray-900">Bestellingen</h2>
+              <div class="flex space-x-3">
+                <div class="relative">
+                  <input id="order-filter" type="text" placeholder="Zoeken..." class="block w-full px-3 py-2 leading-5 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+              </div>
+            </div>
+            
+            <!-- Orders table -->
+            <div class="flex flex-col mt-6">
+              <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                  <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                    <table class="min-w-full divide-y divide-gray-300">
+                      <thead class="bg-gray-50">
+                        <tr>
+                          <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Bestelnummer</th>
+                          <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Datum</th>
+                          <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Klant</th>
+                          <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Totaal</th>
+                          <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Status</th>
+                          <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                            <span class="sr-only">Acties</span>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody id="orders-table" class="bg-white divide-y divide-gray-200">
+                        <!-- Orders will be loaded here via JavaScript -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order details (hidden by default) -->
+  <div id="order-details-section" class="hidden fixed inset-0 overflow-y-auto bg-gray-500 bg-opacity-75 flex items-center justify-center">
+    <div class="bg-white rounded-lg shadow-xl max-w-4xl w-full mx-4 my-6">
+      <div class="flex items-center justify-between px-4 py-5 sm:px-6 border-b border-gray-200">
+        <div>
+          <h3 class="text-lg font-medium leading-6 text-gray-900">Bestelgegevens</h3>
+          <p class="max-w-2xl mt-1 text-sm text-gray-500">Details van bestelling <span id="order-id" class="font-medium">#123456</span></p>
+        </div>
+        <button id="close-details" class="text-gray-400 hover:text-gray-500">
+          <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Order summary -->
+      <div class="px-4 py-5 sm:px-6">
+        <div class="grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2">
+          <div class="sm:col-span-1">
+            <span class="text-sm font-medium text-gray-500">Datum:</span>
+            <span id="order-date" class="ml-2 text-sm text-gray-900">01-01-2023</span>
+          </div>
+          <div class="sm:col-span-1">
+            <span class="text-sm font-medium text-gray-500">Status:</span>
+            <span id="order-status" class="ml-2 text-sm text-gray-900">Nieuw</span>
+          </div>
+          <div class="sm:col-span-1">
+            <span class="text-sm font-medium text-gray-500">Klant:</span>
+            <span id="customer-name" class="ml-2 text-sm text-gray-900">John Doe</span>
+          </div>
+          <div class="sm:col-span-1">
+            <span class="text-sm font-medium text-gray-500">Email:</span>
+            <span id="customer-email" class="ml-2 text-sm text-gray-900">john@example.com</span>
+          </div>
+          <div class="sm:col-span-1">
+            <span class="text-sm font-medium text-gray-500">Telefoon:</span>
+            <span id="customer-phone" class="ml-2 text-sm text-gray-900">+31 6 12345678</span>
+          </div>
+          <div class="sm:col-span-1">
+            <span class="text-sm font-medium text-gray-500">Adres:</span>
+            <span id="customer-address" class="ml-2 text-sm text-gray-900">Voorbeeldstraat 1, 1234AB Amsterdam</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bestelde producten -->
+      <div class="border-t border-gray-200">
+        <div class="px-4 py-5 sm:px-6">
+          <h4 class="text-base font-medium text-gray-900">Bestelde producten</h4>
+          
+          <div class="mt-4 -mx-4 sm:-mx-6 overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-300">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Product</th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Prijs</th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Aantal</th>
+                  <th scope="col" class="px-3 py-3.5 text-right text-sm font-semibold text-gray-900 pr-6">Subtotaal</th>
+                </tr>
+              </thead>
+              <tbody id="order-items" class="bg-white divide-y divide-gray-200">
+                <!-- Order items will be loaded here via JavaScript -->
+              </tbody>
+              <tfoot class="bg-gray-50">
+                <tr>
+                  <td colspan="3" class="py-3.5 pl-6 text-right text-sm font-semibold text-gray-900">Totaal:</td>
+                  <td class="py-3.5 pr-6 text-right text-sm font-semibold text-gray-900" id="order-total">€0,00</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/admin.js"></script>
+</body>
+</html>

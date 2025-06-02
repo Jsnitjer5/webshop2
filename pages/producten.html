@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PekelPC.nl - Producten</title>
+  <link href="../src/output.css" rel="stylesheet">
+  <style>
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Navbar -->
+  <nav class="bg-gray-900 text-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <!-- Logo -->
+        <div class="flex-shrink-0">
+          <a href="../index.html">
+            <div class="flex items-center">
+              <div class="text-2xl font-bold">
+                <span class="text-white">PekelPC</span>
+                <span class="text-teal-400">.nl</span>
+              </div>
+            </div>
+          </a>
+        </div>
+  
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex space-x-8 text-base font-medium">
+          <a href="../index.html" class="hover:text-teal-400 transition">Home</a>
+          <a href="pages/producten.html" class="text-teal-400 transition">Producten</a>
+          <a href="pages/contact.html" class="hover:text-teal-400 transition">Contact</a>
+        </div>
+
+        <!-- Shopping Cart -->
+        <div class="hidden md:flex items-center">
+          <a href="pages/winkelwagen.html" id="cart-link" class="flex items-center text-white hover:text-teal-400 transition">
+            <svg class="h-6 w-6 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+            <span id="cart-count" class="bg-teal-400 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">0</span>
+          </a>
+        </div>
+  
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden flex items-center">
+          <a href="#" id="mobile-cart-link" class="text-white hover:text-teal-400 transition mr-4">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+          </a>
+          <button id="menu-toggle" class="text-white focus:outline-none">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
+      <a href="../index.html" class="block py-2 hover:text-teal-400 transition">Home</a>
+      <a href="pages/producten.html" class="block py-2 text-teal-400 transition">Producten</a>
+      <a href="pages/contact.html" class="block py-2 hover:text-teal-400 transition">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <div class="bg-white shadow">
+    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+      <h1 class="text-3xl font-bold text-gray-900">Onze Producten</h1>
+    </div>
+  </div>
+
+  <!-- Filter and Sort Section -->
+  <div class="bg-gray-100 border-b">
+    <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+        <!-- Category Filter -->
+        <div class="flex items-center space-x-4 mb-4 md:mb-0">
+          <span class="text-gray-700 font-medium">Categorie:</span>
+          <div class="flex flex-wrap gap-2">
+            <button class="category-filter px-3 py-1 bg-teal-500 text-white rounded-full text-sm" data-category="Alle">Alle</button>
+            <button class="category-filter px-3 py-1 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full text-sm" data-category="CPU">CPU's</button>
+            <button class="category-filter px-3 py-1 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full text-sm" data-category="GPU">GPU's</button>
+            <button class="category-filter px-3 py-1 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full text-sm" data-category="Moederbord">Moederborden</button>
+            <button class="category-filter px-3 py-1 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full text-sm" data-category="RAM">RAM</button>
+            <button class="category-filter px-3 py-1 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full text-sm" data-category="Pre-build PC">Pre-build PC's</button>
+          </div>
+        </div>
+        <!-- Sort Options -->
+        <div class="flex items-center">
+          <span class="text-gray-700 font-medium mr-2">Sorteren op:</span>
+          <select id="sort-select" class="border-gray-300 rounded-md shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200 focus:ring-opacity-50">
+            <option>Aanbevolen</option>
+            <option>Prijs (laag naar hoog)</option>
+            <option>Prijs (hoog naar laag)</option>
+            <option>Nieuwste eerst</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Products Grid -->
+  <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+    <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <!-- Products will be loaded here via JavaScript -->
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-gray-200">
+    <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+      <div class="xl:grid xl:grid-cols-3 xl:gap-8">
+        <div class="space-y-8 xl:col-span-1">
+          <div class="text-2xl font-bold">
+            <span class="text-gray-900">Pekel</span>
+            <span class="text-gray-900">PC</span>
+            <span class="text-teal-400">.nl</span>
+          </div>
+          <p class="text-gray-600 text-base">
+            Jouw betrouwbare partner voor gaming hardware en PC componenten. 
+          </p>
+        </div>
+        <div class="mt-12 grid grid-cols-2 gap-8 xl:mt-0 xl:col-span-2">
+          <div>
+            <h3 class="text-sm font-semibold text-gray-800 tracking-wider uppercase">
+              Producten
+            </h3>
+            <ul class="mt-4 space-y-4">
+              <li>
+                <a href="producten.html?category=CPU" class="text-base text-gray-600 hover:text-gray-900">
+                  CPU's
+                </a>
+              </li>
+              <li>
+                <a href="producten.html?category=GPU" class="text-base text-gray-600 hover:text-gray-900">
+                  GPU's
+                </a>
+              </li>
+              <li>
+                <a href="producten.html?category=Moederbord" class="text-base text-gray-600 hover:text-gray-900">
+                  Moederborden
+                </a>
+              </li>
+              <li>
+                <a href="producten.html?category=RAM" class="text-base text-gray-600 hover:text-gray-900">
+                  RAM
+                </a>
+              </li>
+              <li>
+                <a href="producten.html?category=Pre-build%20PC" class="text-base text-gray-600 hover:text-gray-900">
+                  Pre-build PC's
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-gray-800 tracking-wider uppercase">
+              Contact
+            </h3>
+            <ul class="mt-4 space-y-4">
+              <li class="flex">
+                <svg class="h-5 w-5 text-gray-400 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <span class="ml-3 text-base text-gray-600">
+                  info@pekelpc.nl
+                </span>
+              </li>
+              <li class="flex">
+                <svg class="h-5 w-5 text-gray-400 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+                <span class="ml-3 text-base text-gray-600">
+                  0123-456789
+                </span>
+              </li>
+              <li class="flex">
+                <svg class="h-5 w-5 text-gray-400 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span class="ml-3 text-base text-gray-600">
+                  Gamestraat 123, Groningen
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="mt-12 border-t border-gray-200 pt-8">
+        <p class="text-base text-gray-500 text-center">
+          &copy; 2025 PekelPC.nl. Alle rechten voorbehouden.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/products.js"></script>
+</body>
+</html>
