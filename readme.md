@@ -2,7 +2,7 @@ Een moderne webshop gespecialiseerd in gaming hardware en PC componenten, gebouw
 
 ## 🌐 Live Demo
 
-**Website:** ( https://webshop2-eta.vercel.app/ )
+**Website:** (https://webshop2-eta.vercel.app/)
 
 ### Installatie
 
