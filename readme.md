@@ -2,7 +2,7 @@ Een moderne webshop gespecialiseerd in gaming hardware en PC componenten, gebouw
 
 ## 🌐 Live Demo
 
-**Website:** [ https://webshop2-eta.vercel.app/ ]
+**Website:** ( https://webshop2-eta.vercel.app/ )
 
 ### Installatie
 
@@ -38,13 +38,6 @@ pekelpc-webshop/
 └── data/                   # JSON data files
     └── products.json      # Product database
 ```
-
-## Technologieën
-
-- **Frontend:** HTML5, CSS3, JavaScript (ES6+)
-- **Styling:** Tailwind CSS 4.1.4
-- **Data Storage:** LocalStorage
-- **Development:** Node.js, npm
 
 - GitHub: [@Jsnitjer5](https://github.com/Jsnitjer5)
 - Email: jsnitjer2@st.noorderpoort.nl
