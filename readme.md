@@ -2,13 +2,13 @@ Een moderne webshop gespecialiseerd in gaming hardware en PC componenten, gebouw
 
 ## 🌐 Live Demo
 
-**Website:** [https://your-netlify-url.netlify.app](https://your-netlify-url.netlify.app)
+**Website:** [ https://webshop2-eta.vercel.app/ ]
 
 ### Installatie
 
 1. **Clone het project**
    ```bash
-   git clone https://github.com/Jsnitjer5/thewebshop.git
+   git clone https://github.com/Jsnitjer5/webshop2.git
    ```
 
 2. **Installeer dependencies**
