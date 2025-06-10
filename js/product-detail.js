@@ -41,7 +41,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const specsContent = document.getElementById('specs-content');
   
   if (specsTab && reviewsTab) {
-    // Initially hide reviews content (if it exists)
     const reviewsContent = document.getElementById('reviews-content');
     if (reviewsContent) {
       reviewsContent.classList.add('hidden');
@@ -145,7 +144,7 @@ function displayProductDetails(product) {
   // Product image
   const mainImage = document.getElementById('main-product-image');
   if (mainImage) {
-    mainImage.src = product.image;
+    mainImage.src = '../' + product.image;
     mainImage.alt = product.name;
   }
   

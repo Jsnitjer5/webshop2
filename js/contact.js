@@ -1,4 +1,3 @@
-    // Enhanced Contact Form Validation and Functionality
     document.addEventListener('DOMContentLoaded', function() {
         // Initialize mobile menu toggle
         const menuToggle = document.getElementById('menu-toggle');
@@ -237,13 +236,11 @@
         if (successModal) {
           successModal.classList.remove('hidden');
           
-          // Focus on OK button for accessibility
           const okButton = document.getElementById('close-success');
           if (okButton) {
             setTimeout(() => okButton.focus(), 100);
           }
           
-          // Auto-close after 5 seconds
           setTimeout(hideSuccessMessage, 5000);
         }
       }

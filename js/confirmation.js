@@ -1,12 +1,3 @@
-/**
- * confirmation.js - Order confirmation page functionality
- * 
- * This script handles the order confirmation page including:
- * - Displaying order details
- * - Formatting order information
- * - Success animation
- */
-
 document.addEventListener('DOMContentLoaded', function() {
   // Mobile menu toggle functionality
   const menuToggle = document.getElementById('menu-toggle');

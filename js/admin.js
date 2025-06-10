@@ -1,12 +1,3 @@
-/**
- * admin.js - Admin panel functionality
- * 
- * This script handles all admin-related functionality including:
- * - Product management (add, edit, delete)
- * - Order management and viewing
- * - Mobile menu functionality
- */
-
 document.addEventListener('DOMContentLoaded', function() {
   const path = window.location.pathname;
   

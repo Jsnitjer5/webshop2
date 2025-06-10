@@ -1,14 +1,3 @@
-/**
- * cart.js - Shopping cart functionality
- * 
- * This script handles all shopping cart operations including:
- * - Displaying cart items
- * - Updating item quantities
- * - Removing items from cart
- * - Calculating totals
- * - Processing checkout
- */
-
 document.addEventListener('DOMContentLoaded', function() {
   // Initialize mobile menu toggle
   const menuToggle = document.getElementById('menu-toggle');

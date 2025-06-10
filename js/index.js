@@ -1,10 +1,5 @@
 /**
  * index.js - Homepage functionality
- * 
- * This script handles the homepage including:
- * - Loading and displaying featured products
- * - Adding products to cart
- * - Mobile menu functionality
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -107,7 +102,7 @@ function displayFeaturedProducts(products, container) {
         <img src="${product.image}" alt="${product.name}" style="max-height: 120px; max-width: 90%;" class="object-contain">
       </div>
       <div class="p-3 flex flex-col flex-grow">
-        <a href="product-detail.html?id=${product.id}" class="block hover:text-teal-600">
+        <a href="pages/product-detail.html?id=${product.id}" class="block hover:text-teal-600">
           <h3 class="text-sm font-medium text-gray-900 truncate">${product.name}</h3>
         </a>
         <p class="mt-1 text-xs text-gray-500 line-clamp-2">${shortDesc}</p>
