@@ -1,4 +1,53 @@
-document.addEventListener('DOMContentLoaded', function () {
+function showConfirmModal(message, title = 'Bevestigen') {
+    return new Promise((resolve) => {
+        const existingModal = document.querySelector('.confirm-modal');
+        if (existingModal) {
+            existingModal.remove();
+        }
+
+        // Create simple modal
+        const modal = document.createElement('div');
+        modal.className = 'confirm-modal';
+        modal.innerHTML = `
+            <div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;border:2px solid black;padding:20px;z-index:9999;width:300px;">
+                <h3>${title}</h3>
+                <p>${message}</p>
+                <button id="modal-yes" style="margin-right:10px;padding:5px 15px;">Ja</button>
+                <button id="modal-no" style="padding:5px 15px;">Annuleren</button>
+            </div>
+            <div style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9998;"></div>
+        `;
+
+        document.body.appendChild(modal);
+
+        const yesBtn = modal.querySelector('#modal-yes');
+        const noBtn = modal.querySelector('#modal-no');
+
+        const cleanup = () => {
+            if (modal && modal.parentNode) {
+                modal.parentNode.removeChild(modal);
+            }
+        };
+
+        yesBtn.addEventListener('click', () => {
+            cleanup();
+            resolve(true);
+        });
+
+        noBtn.addEventListener('click', () => {
+            cleanup();
+            resolve(false);
+        });
+
+        // Close on backdrop click
+        modal.addEventListener('click', (e) => {
+            if (e.target !== yesBtn && e.target !== noBtn && !modal.children[0].contains(e.target)) {
+                cleanup();
+                resolve(false);
+            }
+        });
+    });
+}document.addEventListener('DOMContentLoaded', function () {
     // Initialize mobile menu toggle
     const menuToggle = document.getElementById('menu-toggle');
     if (menuToggle) {
