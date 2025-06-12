@@ -37,35 +37,41 @@ function showConfirmModal(message, title = 'Bevestigen') {
             existingModal.remove();
         }
 
+        // Create modal backdrop
         const modalBackdrop = document.createElement('div');
         modalBackdrop.className = 'confirm-modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50';
 
+        // Create modal container
         const modalContainer = document.createElement('div');
         modalContainer.className = 'bg-white rounded-lg shadow-xl max-w-md w-full p-6 transform transition-all duration-200 scale-95 opacity-0';
 
+        // Create title
         const titleElement = document.createElement('h3');
         titleElement.className = 'text-lg font-semibold text-gray-900 mb-3 text-center';
         titleElement.textContent = title;
 
+        // Create message
         const messageElement = document.createElement('p');
         messageElement.className = 'text-sm text-gray-600 mb-6 text-center leading-relaxed';
         messageElement.textContent = message;
 
+        // Create button container with explicit styling
         const buttonContainer = document.createElement('div');
-        buttonContainer.className = 'flex gap-3 justify-center items-center';
+        buttonContainer.className = 'flex space-x-3 justify-center';
+        
+        // Use innerHTML to ensure both buttons are created properly
+        buttonContainer.innerHTML = `
+            <button id="modal-cancel" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300 transition-colors duration-200">
+                Annuleren
+            </button>
+            <button id="modal-confirm" class="px-4 py-2 text-sm font-medium text-white bg-red-600 border border-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-300 transition-colors duration-200">
+                Ja
+            </button>
+        `;
 
-        const confirmButton = document.createElement('button');
-        confirmButton.className = 'px-4 py-2 text-sm font-medium text-white bg-red-600 border border-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-300 transition-colors duration-200 flex-shrink-0';
-        confirmButton.textContent = 'Ja';
-        confirmButton.type = 'button';
-
-        const cancelButton = document.createElement('button');
-        cancelButton.className = 'px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300 transition-colors duration-200 flex-shrink-0';
-        cancelButton.textContent = 'Annuleren';
-        cancelButton.type = 'button';
-
-        buttonContainer.appendChild(cancelButton);
-        buttonContainer.appendChild(confirmButton);
+        // Get button references after innerHTML
+        const cancelButton = buttonContainer.querySelector('#modal-cancel');
+        const confirmButton = buttonContainer.querySelector('#modal-confirm');
         modalContainer.appendChild(titleElement);
         modalContainer.appendChild(messageElement);
         modalContainer.appendChild(buttonContainer);
@@ -130,6 +136,7 @@ function showConfirmModal(message, title = 'Bevestigen') {
 
 /**
  * Displays all items in the shopping cart
+ * Handles both empty cart display and populated cart
  */
 function displayCartItems() {
     const cartContainer = document.getElementById('cart-items');
@@ -355,7 +362,7 @@ function handleCheckout(event) {
 
     // Create order object
     const order = {
-        id: Date.now(),
+        id: Date.now(), // Use timestamp as unique ID
         date: new Date().toISOString(),
         customer: {
             firstName: firstName,
