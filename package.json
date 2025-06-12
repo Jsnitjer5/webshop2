@@ -1,11 +1,18 @@
 {
   "name": "pekelpc-webshop",
+  "type": "module",
   "scripts": {
     "build-css": "tailwindcss -i ./src/input.css -o ./src/output.css --minify",
-    "dev-css": "tailwindcss -i ./src/input.css -o ./src/output.css --watch"
+    "dev-css": "tailwindcss -i ./src/input.css -o ./src/output.css --watch",
+    "lint": "eslint js/**/*.js admin/js/**/*.js",
+    "lint:fix": "eslint js/**/*.js admin/js/**/*.js --fix",
+    "lint:check": "eslint js/**/*.js admin/js/**/*.js --max-warnings 0"
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.1.4",
     "tailwindcss": "^4.1.4"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0"
   }
 }
