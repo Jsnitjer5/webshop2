@@ -1,53 +1,4 @@
-function showConfirmModal(message, title = 'Bevestigen') {
-    return new Promise((resolve) => {
-        const existingModal = document.querySelector('.confirm-modal');
-        if (existingModal) {
-            existingModal.remove();
-        }
-
-        // Create simple modal
-        const modal = document.createElement('div');
-        modal.className = 'confirm-modal';
-        modal.innerHTML = `
-            <div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;border:2px solid black;padding:20px;z-index:9999;width:300px;">
-                <h3>${title}</h3>
-                <p>${message}</p>
-                <button id="modal-yes" style="margin-right:10px;padding:5px 15px;">Ja</button>
-                <button id="modal-no" style="padding:5px 15px;">Annuleren</button>
-            </div>
-            <div style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9998;"></div>
-        `;
-
-        document.body.appendChild(modal);
-
-        const yesBtn = modal.querySelector('#modal-yes');
-        const noBtn = modal.querySelector('#modal-no');
-
-        const cleanup = () => {
-            if (modal && modal.parentNode) {
-                modal.parentNode.removeChild(modal);
-            }
-        };
-
-        yesBtn.addEventListener('click', () => {
-            cleanup();
-            resolve(true);
-        });
-
-        noBtn.addEventListener('click', () => {
-            cleanup();
-            resolve(false);
-        });
-
-        // Close on backdrop click
-        modal.addEventListener('click', (e) => {
-            if (e.target !== yesBtn && e.target !== noBtn && !modal.children[0].contains(e.target)) {
-                cleanup();
-                resolve(false);
-            }
-        });
-    });
-}document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
     // Initialize mobile menu toggle
     const menuToggle = document.getElementById('menu-toggle');
     if (menuToggle) {
@@ -76,7 +27,7 @@ function showConfirmModal(message, title = 'Bevestigen') {
 });
 
 /**
- * Custom confirmation modal to replace window.confirm()
+ * Confirmation Modal
  */
 function showConfirmModal(message, title = 'Bevestigen') {
     return new Promise((resolve) => {
@@ -86,83 +37,83 @@ function showConfirmModal(message, title = 'Bevestigen') {
             existingModal.remove();
         }
 
-        // Create modal elements
-        const modal = document.createElement('div');
-        modal.className = 'confirm-modal fixed inset-0 bg-black bg-opacity-50 z-50';
-        
-        // Create the modal content
-        const modalContent = document.createElement('div');
-        modalContent.className = 'flex items-center justify-center min-h-screen p-4';
-        
-        const modalBox = document.createElement('div');
-        modalBox.className = 'bg-white rounded-lg shadow-xl max-w-sm w-full p-6';
-        
-        // Title
+        // Create modal backdrop
+        const modalBackdrop = document.createElement('div');
+        modalBackdrop.className = 'confirm-modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50';
+
+        // Create modal container
+        const modalContainer = document.createElement('div');
+        modalContainer.className = 'bg-white rounded-lg shadow-xl max-w-md w-full p-6 transform transition-all duration-200 scale-95 opacity-0';
+
+        // Create title
         const titleElement = document.createElement('h3');
         titleElement.className = 'text-lg font-semibold text-gray-900 mb-3 text-center';
         titleElement.textContent = title;
-        
-        // Message
+
+        // Create message
         const messageElement = document.createElement('p');
-        messageElement.className = 'text-sm text-gray-600 mb-6 text-center';
+        messageElement.className = 'text-sm text-gray-600 mb-6 text-center leading-relaxed';
         messageElement.textContent = message;
-        
-        // Button container
+
+        // Create button container
         const buttonContainer = document.createElement('div');
         buttonContainer.className = 'flex gap-3 justify-center';
-        
-        // Yes button
-        const yesButton = document.createElement('button');
-        yesButton.className = 'px-4 py-2 bg-red-500 text-white text-sm font-medium rounded-md ' +
-                             'hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300 ' +
-                             'transition-colors duration-200';
-        yesButton.textContent = 'Ja';
-        
-        // No button  
-        const noButton = document.createElement('button');
-        noButton.className = 'px-4 py-2 bg-gray-300 text-gray-700 text-sm font-medium rounded-md ' +
-                            'hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 ' +
-                            'transition-colors duration-200';
-        noButton.textContent = 'Annuleren';
-        
-        // Add elements to button container
-        buttonContainer.appendChild(yesButton);
-        buttonContainer.appendChild(noButton);
-        
-        // Add elements to modal box
-        modalBox.appendChild(titleElement);
-        modalBox.appendChild(messageElement);
-        modalBox.appendChild(buttonContainer);
-        
-        // Add modal box to content
-        modalContent.appendChild(modalBox);
-        
-        // Add content to modal
-        modal.appendChild(modalContent);
-        
-        // Add modal to body
-        document.body.appendChild(modal);
+
+        // Create cancel button
+        const cancelButton = document.createElement('button');
+        cancelButton.className = 'px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300 transition-colors duration-200';
+        cancelButton.textContent = 'Annuleren';
+
+        // Create confirm button
+        const confirmButton = document.createElement('button');
+        confirmButton.className = 'px-4 py-2 text-sm font-medium text-white bg-red-600 border border-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-300 transition-colors duration-200';
+        confirmButton.textContent = 'Ja';
+
+        // Assemble modal
+        buttonContainer.appendChild(cancelButton);
+        buttonContainer.appendChild(confirmButton);
+        modalContainer.appendChild(titleElement);
+        modalContainer.appendChild(messageElement);
+        modalContainer.appendChild(buttonContainer);
+        modalBackdrop.appendChild(modalContainer);
+        document.body.appendChild(modalBackdrop);
+
+        // Prevent body scroll
+        document.body.classList.add('overflow-hidden');
+
+        // Animate in
+        requestAnimationFrame(() => {
+            modalContainer.classList.remove('scale-95', 'opacity-0');
+            modalContainer.classList.add('scale-100', 'opacity-100');
+        });
 
         const cleanup = () => {
-            if (modal && modal.parentNode) {
-                modal.parentNode.removeChild(modal);
-            }
+            // Animate out
+            modalContainer.classList.add('scale-95', 'opacity-0');
+            modalContainer.classList.remove('scale-100', 'opacity-100');
+            
+            setTimeout(() => {
+                if (modalBackdrop && modalBackdrop.parentNode) {
+                    modalBackdrop.remove();
+                }
+                document.body.classList.remove('overflow-hidden');
+            }, 200);
         };
 
         // Event listeners
-        yesButton.addEventListener('click', () => {
+        confirmButton.addEventListener('click', () => {
             cleanup();
             resolve(true);
         });
 
-        noButton.addEventListener('click', () => {
+        cancelButton.addEventListener('click', () => {
             cleanup();
             resolve(false);
         });
 
-        // Close on outside click
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal || e.target === modalContent) {
+        // Close on backdrop click
+        modalBackdrop.addEventListener('click', (e) => {
+            if (e.target === modalBackdrop) {
                 cleanup();
                 resolve(false);
             }
@@ -178,10 +129,8 @@ function showConfirmModal(message, title = 'Bevestigen') {
         };
         document.addEventListener('keydown', handleKeydown);
 
-        // Focus the "Annuleren" button by default
-        setTimeout(() => {
-            noButton.focus();
-        }, 100);
+        // Focus cancel button
+        setTimeout(() => cancelButton.focus(), 100);
     });
 }
 
@@ -364,7 +313,7 @@ function removeCartItem(index) {
 async function clearCart() {
     const confirmed = await showConfirmModal(
         'Weet u zeker dat u de winkelwagen wilt leegmaken?',
-        'Winkelwagen leegmaken',
+        'Winkelwagen leegmaken'
     );
 
     if (confirmed) {
@@ -422,14 +371,14 @@ function handleCheckout(event) {
             phone: phone,
             address: address,
             postalCode: postalCode,
-            city: city,
+            city: city
         },
         items: cart,
         payment: paymentMethod,
         subtotal: subtotal,
         shipping: shipping,
         total: total,
-        status: 'Nieuw',
+        status: 'Nieuw'
     };
 
     // Save order to localStorage
