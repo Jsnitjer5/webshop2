@@ -28,36 +28,44 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /**
  * Custom confirmation modal to replace window.confirm()
+ * @param {string} message - The message to display
+ * @param {string} title - The title of the modal
+ * @returns {Promise<boolean>} - Promise that resolves to true if confirmed
  */
 function showConfirmModal(message, title = 'Bevestigen') {
     return new Promise((resolve) => {
+        // Remove any existing modals first
+        const existingModal = document.querySelector('.confirm-modal');
+        if (existingModal) {
+            existingModal.remove();
+        }
+
         // Create modal elements
         const modal = document.createElement('div');
-        modal.className = 'fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto ' +
-            'h-full w-full z-50 flex items-center justify-center';
+        modal.className = 'confirm-modal fixed inset-0 bg-gray-600 bg-opacity-50 ' +
+            'overflow-y-auto h-full w-full z-50';
 
-        const yesButtonClass = 'px-4 py-2 bg-red-500 text-white text-base font-medium ' +
-            'rounded-md shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 ' +
-            'focus:ring-red-300';
-
-        const noButtonClass = 'px-4 py-2 bg-gray-300 text-gray-700 text-base font-medium ' +
-            'rounded-md shadow-sm hover:bg-gray-400 focus:outline-none focus:ring-2 ' +
-            'focus:ring-gray-300';
-
+        // Create modal content with proper flexbox centering
         modal.innerHTML = `
-            <div class="relative mx-auto p-5 border max-w-md shadow-lg rounded-md bg-white">
-                <div class="mt-3 text-center">
-                    <h3 class="text-lg font-medium text-gray-900">${title}</h3>
-                    <div class="mt-2 px-7 py-3">
-                        <p class="text-sm text-gray-500">${message}</p>
-                    </div>
-                    <div class="flex gap-4 px-4 py-3 justify-center">
-                        <button id="confirm-yes" class="${yesButtonClass}">
-                            Ja
-                        </button>
-                        <button id="confirm-no" class="${noButtonClass}">
-                            Annuleren
-                        </button>
+            <div class="flex items-center justify-center min-h-screen px-4">
+                <div class="relative bg-white rounded-lg shadow-xl max-w-md w-full mx-auto">
+                    <div class="p-6">
+                        <div class="text-center">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">${title}</h3>
+                            <p class="text-sm text-gray-500 mb-6">${message}</p>
+                            <div class="flex gap-3 justify-center">
+                                <button class="confirm-yes px-4 py-2 bg-red-500 text-white text-sm 
+                                               font-medium rounded-md hover:bg-red-600 
+                                               focus:outline-none focus:ring-2 focus:ring-red-300">
+                                    Ja
+                                </button>
+                                <button class="confirm-no px-4 py-2 bg-gray-300 text-gray-700 
+                                               text-sm font-medium rounded-md hover:bg-gray-400 
+                                               focus:outline-none focus:ring-2 focus:ring-gray-300">
+                                    Annuleren
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -65,11 +73,13 @@ function showConfirmModal(message, title = 'Bevestigen') {
 
         document.body.appendChild(modal);
 
-        const yesBtn = modal.querySelector('#confirm-yes');
-        const noBtn = modal.querySelector('#confirm-no');
+        const yesBtn = modal.querySelector('.confirm-yes');
+        const noBtn = modal.querySelector('.confirm-no');
 
         const cleanup = () => {
-            document.body.removeChild(modal);
+            if (modal.parentNode) {
+                modal.parentNode.removeChild(modal);
+            }
         };
 
         yesBtn.addEventListener('click', () => {
@@ -89,6 +99,11 @@ function showConfirmModal(message, title = 'Bevestigen') {
                 resolve(false);
             }
         });
+
+        // Focus the "Annuleren" button by default
+        setTimeout(() => {
+            noBtn.focus();
+        }, 100);
     });
 }
 
@@ -236,6 +251,8 @@ function displayCartItems() {
 /**
  * Updates the quantity of a specific item in the cart
  *
+ * @param {number} index - The index of the item in the cart array
+ * @param {number} newQuantity - The new quantity to set
  */
 function updateItemQuantity(index, newQuantity) {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -251,6 +268,8 @@ function updateItemQuantity(index, newQuantity) {
 
 /**
  * Removes an item from the cart
+ *
+ * @param {number} index - The index of the item to remove
  */
 function removeCartItem(index) {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -272,7 +291,7 @@ function removeCartItem(index) {
 async function clearCart() {
     const confirmed = await showConfirmModal(
         'Weet u zeker dat u de winkelwagen wilt leegmaken?',
-        'Winkelwagen leegmaken'
+        'Winkelwagen leegmaken',
     );
 
     if (confirmed) {
@@ -284,6 +303,9 @@ async function clearCart() {
 
 /**
  * Processes the checkout form submission
+ * Creates an order object and saves it to localStorage
+ *
+ * @param {Event} event - The form submission event
  */
 function handleCheckout(event) {
     event.preventDefault();
@@ -360,6 +382,8 @@ function handleCheckout(event) {
 
 /**
  * Shows a notification message
+ * @param {string} message - The message to display
+ * @param {string} type - The type of notification (success, error, info)
  */
 function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
