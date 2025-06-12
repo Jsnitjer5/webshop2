@@ -28,9 +28,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /**
  * Custom confirmation modal to replace window.confirm()
- * @param {string} message - The message to display
- * @param {string} title - The title of the modal
- * @returns {Promise<boolean>} - Promise that resolves to true if confirmed
  */
 function showConfirmModal(message, title = 'Bevestigen') {
     return new Promise((resolve) => {
@@ -42,67 +39,99 @@ function showConfirmModal(message, title = 'Bevestigen') {
 
         // Create modal elements
         const modal = document.createElement('div');
-        modal.className = 'confirm-modal fixed inset-0 bg-gray-600 bg-opacity-50 ' +
-            'overflow-y-auto h-full w-full z-50';
-
-        // Create modal content with proper flexbox centering
-        modal.innerHTML = `
-            <div class="flex items-center justify-center min-h-screen px-4">
-                <div class="relative bg-white rounded-lg shadow-xl max-w-md w-full mx-auto">
-                    <div class="p-6">
-                        <div class="text-center">
-                            <h3 class="text-lg font-medium text-gray-900 mb-4">${title}</h3>
-                            <p class="text-sm text-gray-500 mb-6">${message}</p>
-                            <div class="flex gap-3 justify-center">
-                                <button class="confirm-yes px-4 py-2 bg-red-500 text-white text-sm 
-                                               font-medium rounded-md hover:bg-red-600 
-                                               focus:outline-none focus:ring-2 focus:ring-red-300">
-                                    Ja
-                                </button>
-                                <button class="confirm-no px-4 py-2 bg-gray-300 text-gray-700 
-                                               text-sm font-medium rounded-md hover:bg-gray-400 
-                                               focus:outline-none focus:ring-2 focus:ring-gray-300">
-                                    Annuleren
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-
+        modal.className = 'confirm-modal fixed inset-0 bg-black bg-opacity-50 z-50';
+        
+        // Create the modal content
+        const modalContent = document.createElement('div');
+        modalContent.className = 'flex items-center justify-center min-h-screen p-4';
+        
+        const modalBox = document.createElement('div');
+        modalBox.className = 'bg-white rounded-lg shadow-xl max-w-sm w-full p-6';
+        
+        // Title
+        const titleElement = document.createElement('h3');
+        titleElement.className = 'text-lg font-semibold text-gray-900 mb-3 text-center';
+        titleElement.textContent = title;
+        
+        // Message
+        const messageElement = document.createElement('p');
+        messageElement.className = 'text-sm text-gray-600 mb-6 text-center';
+        messageElement.textContent = message;
+        
+        // Button container
+        const buttonContainer = document.createElement('div');
+        buttonContainer.className = 'flex gap-3 justify-center';
+        
+        // Yes button
+        const yesButton = document.createElement('button');
+        yesButton.className = 'px-4 py-2 bg-red-500 text-white text-sm font-medium rounded-md ' +
+                             'hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300 ' +
+                             'transition-colors duration-200';
+        yesButton.textContent = 'Ja';
+        
+        // No button  
+        const noButton = document.createElement('button');
+        noButton.className = 'px-4 py-2 bg-gray-300 text-gray-700 text-sm font-medium rounded-md ' +
+                            'hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 ' +
+                            'transition-colors duration-200';
+        noButton.textContent = 'Annuleren';
+        
+        // Add elements to button container
+        buttonContainer.appendChild(yesButton);
+        buttonContainer.appendChild(noButton);
+        
+        // Add elements to modal box
+        modalBox.appendChild(titleElement);
+        modalBox.appendChild(messageElement);
+        modalBox.appendChild(buttonContainer);
+        
+        // Add modal box to content
+        modalContent.appendChild(modalBox);
+        
+        // Add content to modal
+        modal.appendChild(modalContent);
+        
+        // Add modal to body
         document.body.appendChild(modal);
 
-        const yesBtn = modal.querySelector('.confirm-yes');
-        const noBtn = modal.querySelector('.confirm-no');
-
         const cleanup = () => {
-            if (modal.parentNode) {
+            if (modal && modal.parentNode) {
                 modal.parentNode.removeChild(modal);
             }
         };
 
-        yesBtn.addEventListener('click', () => {
+        // Event listeners
+        yesButton.addEventListener('click', () => {
             cleanup();
             resolve(true);
         });
 
-        noBtn.addEventListener('click', () => {
+        noButton.addEventListener('click', () => {
             cleanup();
             resolve(false);
         });
 
         // Close on outside click
         modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
+            if (e.target === modal || e.target === modalContent) {
                 cleanup();
                 resolve(false);
             }
         });
 
+        // Close on Escape key
+        const handleKeydown = (e) => {
+            if (e.key === 'Escape') {
+                cleanup();
+                resolve(false);
+                document.removeEventListener('keydown', handleKeydown);
+            }
+        };
+        document.addEventListener('keydown', handleKeydown);
+
         // Focus the "Annuleren" button by default
         setTimeout(() => {
-            noBtn.focus();
+            noButton.focus();
         }, 100);
     });
 }
@@ -250,9 +279,6 @@ function displayCartItems() {
 
 /**
  * Updates the quantity of a specific item in the cart
- *
- * @param {number} index - The index of the item in the cart array
- * @param {number} newQuantity - The new quantity to set
  */
 function updateItemQuantity(index, newQuantity) {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -268,8 +294,6 @@ function updateItemQuantity(index, newQuantity) {
 
 /**
  * Removes an item from the cart
- *
- * @param {number} index - The index of the item to remove
  */
 function removeCartItem(index) {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -303,9 +327,6 @@ async function clearCart() {
 
 /**
  * Processes the checkout form submission
- * Creates an order object and saves it to localStorage
- *
- * @param {Event} event - The form submission event
  */
 function handleCheckout(event) {
     event.preventDefault();
@@ -382,8 +403,6 @@ function handleCheckout(event) {
 
 /**
  * Shows a notification message
- * @param {string} message - The message to display
- * @param {string} type - The type of notification (success, error, info)
  */
 function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
